@@ -5,7 +5,7 @@ exports.seed = function(knex, Promise) {
       .then(function(){
         const users = [{
           id: 1,
-          user_name: 'Mark',
+          users_name: 'Mark',
           password: 'password1',
           purse: 296,
           experience: 8000,
@@ -23,7 +23,7 @@ exports.seed = function(knex, Promise) {
           pro_games_won: 18
         }, {
           id: 2,
-          user_name: 'Tyler',
+          users_name: 'Tyler',
           password: 'password2',
           purse: 441,
           experience: 8000,
@@ -41,7 +41,7 @@ exports.seed = function(knex, Promise) {
           pro_games_won: 10000
         }, {
           id: 3,
-          user_name: 'Ike',
+          users_name: 'Ike',
           password: 'password3',
           purse: 866,
           experience: 8000,
@@ -59,7 +59,7 @@ exports.seed = function(knex, Promise) {
           pro_games_won: 88
         }, {
           id: 4,
-          user_name: 'Darren',
+          users_name: 'Darren',
           password: 'password4',
           purse: 415,
           experience: 8000,
@@ -77,7 +77,7 @@ exports.seed = function(knex, Promise) {
           pro_games_won: 33
         }, {
           id: 5,
-          user_name: 'Matt',
+          users_name: 'Matt',
           password: 'password5',
           purse: 11,
           experience: 11,
