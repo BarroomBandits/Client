@@ -7,7 +7,7 @@
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 .constant('ApiEndpoint', {
   url: 'http://localhost:3000'
-
+  // url: 'https://galvanize-cors-proxy.herokuapp.com/http://phish.in/api/v1/songs/'
 })
 // For the real endpoint, we'd use this
 // .constant('ApiEndpoint', {
