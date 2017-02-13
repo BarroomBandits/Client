@@ -1,4 +1,4 @@
-<ion-view view-title="games">
+<ion-view view-title="Pending Games">
   <ion-content>
     <div class="row">
       <div class="col">
@@ -12,13 +12,13 @@
       </div>
     </div>
     <ion-list>
-      <ion-item ng-repeat="game in $ctrl.localGames" href="#/app/games/{{game.id}}">
+      <ion-item ng-repeat="game in $ctrl.pendingGames" href="#/app/games/{{game.id}}">
         <div class="row">
           <div class="col">
             {{game.type}}
           </div>
           <div class="col">
-            {{game.p1_score}}
+            {{game.users_name}}
           </div>
           <div class="col">
             <span am-time-ago="game.time"></span>

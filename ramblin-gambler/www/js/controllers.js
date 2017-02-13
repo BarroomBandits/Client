@@ -44,22 +44,14 @@ angular.module('starter.controllers', [])
 .controller('GamesCtrl', function($scope, Api) {
 
   const vm = this;
-  Api.getAllGames(function(games){
-      vm.localGames = games
+  Api.getPendingGames(function(games){
+      vm.pendingGames = games
   });
-  console.log(vm.localGames);
-  // vm.localGames = [
-  //   { title: 'Ping Pong', user:"Darren", time:"2:25 PM", id: 1 },
-  //   { title: 'Hoops', user:"Ike", time:"8:00 PM", id: 2 },
-  //   { title: 'Darts', user:"Mark", time:"7:22 PM", id: 3 },
-  //   { title: 'Pool', user:"Tyler", time:"3:00 AM", id: 4 }
-  // ];
-  // $scope.localGames = [
-  //   { title: 'Ping Pong', user:"Darren", time:"2:25 PM", id: 1 },
-  //   { title: 'Hoops', user:"Ike", time:"8:00 PM", id: 2 },
-  //   { title: 'Darts', user:"Mark", time:"7:22 PM", id: 3 },
-  //   { title: 'Pool', user:"Tyler", time:"3:00 AM", id: 4 }
-  // ];
+
+  Api.getActiveGames(function(games){
+      vm.activeGames = games
+  })
+
 })
 
 .controller('WagersCtrl', function($scope) {

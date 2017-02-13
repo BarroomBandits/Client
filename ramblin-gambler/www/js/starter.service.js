@@ -20,13 +20,18 @@ angular.module('starter.services', [])
 
 .factory('Api', function($http, ApiEndpoint) {
   console.log('ApiEndpoint:', ApiEndpoint.url)
-  var getAllGames = function(callbackFn) {
-    $http.get(ApiEndpoint.url + '/games').success(function(data){
+  var getPendingGames = function(callbackFn) {
+    $http.get(ApiEndpoint.url + '/games_users').success(function(data){
       callbackFn(data);
     })
   };
-
+  var getActiveGames = function(callbackFn){
+    $http.get(ApiEndpoint.url + '/games').success(function(data){
+      callbackFn(data);
+    })
+  }
   return {
-    getAllGames: getAllGames
+    getPendingGames: getPendingGames,
+    getActiveGames: getActiveGames
   };
 })
