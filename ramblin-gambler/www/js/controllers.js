@@ -41,15 +41,21 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
+.controller('GamesCtrl', function($scope) {
+  $scope.localGames = [
+    { title: 'Ping Pong', user:"Darren", time:"2:25 PM", id: 1 },
+    { title: 'Hoops', user:"Ike", time:"8:00 PM", id: 2 },
+    { title: 'Darts', user:"Mark", time:"7:22 PM", id: 3 },
+    { title: 'Pool', user:"Tyler", time:"3:00 AM", id: 4 }
   ];
+})
+
+.controller('WagersCtrl', function($scope) {
+  $scope.localWagers = [
+    {title: 'Nuggets To Win', amount: "15 $hitcoins", user:"XphishXrulesX", id: 1},
+    {title: 'Falcons To Lose', amount: "25 $hitcoins", user:"WinzerBro69", id: 2},
+    {title: 'Milwaukee To Lose by 7', amount: "10 $hitcoins", user:"clownboy3", id: 3}
+  ]
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {

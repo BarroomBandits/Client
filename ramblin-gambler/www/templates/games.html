@@ -1,0 +1,30 @@
+<ion-view view-title="games">
+  <ion-content>
+    <div class="row">
+      <div class="col">
+        <h3>Game</h3>
+      </div>
+      <div class="col">
+        <h3>User</h3>
+      </div>
+      <div class="col">
+        <h3>Time</h3>
+      </div>
+    </div>
+    <ion-list>
+      <ion-item ng-repeat="game in localGames" href="#/app/games/{{game.id}}">
+        <div class="row">
+          <div class="col">
+            {{game.title}}
+          </div>
+          <div class="col">
+            {{game.user}}
+          </div>
+          <div class="col">
+            {{game.time}}
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

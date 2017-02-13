@@ -1,0 +1,30 @@
+<ion-view view-title="wagers">
+  <ion-content>
+    <div class="row">
+      <div class="col">
+        <h3>Game</h3>
+      </div>
+      <div class="col">
+        <h3>User</h3>
+      </div>
+      <div class="col">
+        <h3>Amount</h3>
+      </div>
+    </div>
+    <ion-list>
+      <ion-item ng-repeat="wager in localWagers" href="#/app/wager/{{wager.id}}">
+        <div class="row">
+          <div class="col">
+            {{wager.title}}
+          </div>
+          <div class="col">
+            {{wager.user}}
+          </div>
+          <div class="col">
+            {{wager.amount}}
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
