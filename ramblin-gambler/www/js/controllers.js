@@ -41,13 +41,22 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('GamesCtrl', function($scope) {
-  $scope.localGames = [
-    { title: 'Ping Pong', user:"Darren", time:"2:25 PM", id: 1 },
-    { title: 'Hoops', user:"Ike", time:"8:00 PM", id: 2 },
-    { title: 'Darts', user:"Mark", time:"7:22 PM", id: 3 },
-    { title: 'Pool', user:"Tyler", time:"3:00 AM", id: 4 }
-  ];
+.controller('GamesCtrl', function($scope, Api) {
+
+  const vm = this;
+  vm.localGames = Api.getAllUsers();
+  // vm.localGames = [
+  //   { title: 'Ping Pong', user:"Darren", time:"2:25 PM", id: 1 },
+  //   { title: 'Hoops', user:"Ike", time:"8:00 PM", id: 2 },
+  //   { title: 'Darts', user:"Mark", time:"7:22 PM", id: 3 },
+  //   { title: 'Pool', user:"Tyler", time:"3:00 AM", id: 4 }
+  // ];
+  // $scope.localGames = [
+  //   { title: 'Ping Pong', user:"Darren", time:"2:25 PM", id: 1 },
+  //   { title: 'Hoops', user:"Ike", time:"8:00 PM", id: 2 },
+  //   { title: 'Darts', user:"Mark", time:"7:22 PM", id: 3 },
+  //   { title: 'Pool', user:"Tyler", time:"3:00 AM", id: 4 }
+  // ];
 })
 
 .controller('WagersCtrl', function($scope) {

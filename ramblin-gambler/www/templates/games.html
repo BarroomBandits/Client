@@ -12,7 +12,7 @@
       </div>
     </div>
     <ion-list>
-      <ion-item ng-repeat="game in localGames" href="#/app/games/{{game.id}}">
+      <ion-item ng-repeat="game in $ctrl.localGames" href="#/app/games/{{game.id}}">
         <div class="row">
           <div class="col">
             {{game.title}}
