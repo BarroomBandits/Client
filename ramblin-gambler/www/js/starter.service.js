@@ -19,19 +19,26 @@ angular.module('starter.services', [])
 // })
 
 .factory('Api', function($http, ApiEndpoint) {
-  console.log('ApiEndpoint:', ApiEndpoint.url)
+  // console.log('ApiEndpoint:', ApiEndpoint.url)
   var getPendingGames = function(callbackFn) {
     $http.get(ApiEndpoint.url + '/games_users').success(function(data){
       callbackFn(data);
     })
   };
   var getActiveGames = function(callbackFn){
-    $http.get(ApiEndpoint.url + '/games').success(function(data){
+    $http.get(ApiEndpoint.url + '/active_games').success(function(data){
       callbackFn(data);
+    })
+  }
+  var getPendingWagers = function(callbackFn){
+    $http.get(ApiEndpoint.url + '/wagers').success(function(data){
+      callbackFn(data);
+      console.log(data);
     })
   }
   return {
     getPendingGames: getPendingGames,
-    getActiveGames: getActiveGames
+    getActiveGames: getActiveGames,
+    getPendingWagers: getPendingWagers
   };
 })

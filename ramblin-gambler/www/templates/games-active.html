@@ -1,27 +1,33 @@
-<ion-view view-title="wagers">
+<ion-view view-title="Active Games">
   <ion-content>
     <div class="row">
       <div class="col">
         <h3>Game</h3>
       </div>
       <div class="col">
-        <h3>User</h3>
+        <h3>Players</h3>
       </div>
       <div class="col">
-        <h3>Amount</h3>
+        <h3>Score</h3>
+      </div>
+      <div class="col">
+        <h3>Time</h3>
       </div>
     </div>
     <ion-list>
-      <ion-item ng-repeat="wager in $ctrl.pendingWagers" href="#/app/wager/{{wager.id}}">
+      <ion-item ng-repeat="game in $ctrl.activeGames" href="#/app/games/{{game.id}}">
         <div class="row">
           <div class="col">
-            {{wager.title}}
+            {{game.type}}
           </div>
           <div class="col">
-            {{wager.user}}
+            {{game.p1_name}}
           </div>
           <div class="col">
-            {{wager.amount}}
+            {{game.p1_score}} - {{game.p2_score}}
+          </div>
+          <div class="col">
+            <span am-time-ago="game.time"></span>
           </div>
         </div>
       </ion-item>

@@ -50,16 +50,22 @@ angular.module('starter.controllers', [])
 
   Api.getActiveGames(function(games){
       vm.activeGames = games
+      console.log(vm.activeGames)
   })
 
 })
 
-.controller('WagersCtrl', function($scope) {
-  $scope.localWagers = [
-    {title: 'Nuggets To Win', amount: "15 $hitcoins", user:"XphishXrulesX", id: 1},
-    {title: 'Falcons To Lose', amount: "25 $hitcoins", user:"WinzerBro69", id: 2},
-    {title: 'Milwaukee To Lose by 7', amount: "10 $hitcoins", user:"clownboy3", id: 3}
-  ]
+.controller('WagersCtrl', function($scope, Api) {
+  const vm = this;
+  Api.getPendingWagers(function(wagers){
+    vm.pendingWagers = wagers
+    console.log(vm.pendingWagers)
+  })
+  // $scope.localWagers = [
+  //   {title: 'Nuggets To Win', amount: "15 $hitcoins", user:"XphishXrulesX", id: 1},
+  //   {title: 'Falcons To Lose', amount: "25 $hitcoins", user:"WinzerBro69", id: 2},
+  //   {title: 'Milwaukee To Lose by 7', amount: "10 $hitcoins", user:"clownboy3", id: 3}
+  // ]
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
