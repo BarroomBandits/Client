@@ -15,13 +15,13 @@
       <ion-item ng-repeat="game in $ctrl.localGames" href="#/app/games/{{game.id}}">
         <div class="row">
           <div class="col">
-            {{game.title}}
+            {{game.type}}
           </div>
           <div class="col">
-            {{game.user}}
+            {{game.p1_score}}
           </div>
           <div class="col">
-            {{game.time}}
+            <span am-time-ago="game.time"></span>
           </div>
         </div>
       </ion-item>

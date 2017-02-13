@@ -4,10 +4,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'angularMoment'])
 .constant('ApiEndpoint', {
   url: 'http://localhost:3000'
-
 })
 // For the real endpoint, we'd use this
 // .constant('ApiEndpoint', {
