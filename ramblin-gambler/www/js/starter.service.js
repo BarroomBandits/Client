@@ -37,7 +37,7 @@ angular.module('starter.services', [])
     })
   }
 
-  var createUser = function(callbackFn){
+  var createUser = function(callbackFn, newUser){
     // var newUser = {
     //   users_name: $scope.signupData.username,
     //   email: $scope.signupData.email,

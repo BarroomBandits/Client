@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, Api) {
+.controller('AppCtrl', function($http, $scope, $ionicModal, $timeout, ApiEndpoint) {
   // const vm = this;
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -60,11 +60,12 @@ angular.module('starter.controllers', [])
     var newUser = {
       users_name: $scope.signupData.username,
       email: $scope.signupData.email,
-      password: $scope.signupData.password
+      password: $scope.signupData.password,
+      password2: $scope.signupData.password2
     };
-    console.log("creating new user" + newUser.users_name);
-    Api.createUser(function(user){
-      $scope.newUser = user;
+    console.log(newUser);
+    $http.post(ApiEndpoint.url + '/newuser', newUser).success(function(data){
+      callbackFn(data);
     })
   }
 })
