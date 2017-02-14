@@ -26,7 +26,7 @@ angular.module('starter.services', [])
     })
   };
   var getActiveGames = function(callbackFn){
-    $http.get(ApiEndpoint.url + '/active_games').success(function(data){
+    $http.get(ApiEndpoint.url + '/games_users_wagers').success(function(data){
       callbackFn(data);
     })
   }
