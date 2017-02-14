@@ -36,9 +36,23 @@ angular.module('starter.services', [])
       console.log(data);
     })
   }
+
+  var createUser = function(callbackFn){
+    // var newUser = {
+    //   users_name: $scope.signupData.username,
+    //   email: $scope.signupData.email,
+    //   password: $scope.signupData.password
+    // };
+    // console.log("creating new user" + newUser);
+    $http.post(ApiEndpoint.url + '/newuser', newUser).success(function(data){
+      callbackFn(data);
+    })
+  }
+
   return {
     getPendingGames: getPendingGames,
     getActiveGames: getActiveGames,
-    getPendingWagers: getPendingWagers
+    getPendingWagers: getPendingWagers,
+    createUser: createUser
   };
 })

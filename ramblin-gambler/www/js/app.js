@@ -83,7 +83,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-
+    // .state('app.signup', {
+    //   url: '/signup'
+    // })
   // .state('app.single', {
   //   url: '/playlists/:playlistId',
   //   views: {

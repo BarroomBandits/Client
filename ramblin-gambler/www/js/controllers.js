@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
-
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, Api) {
+  // const vm = this;
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -11,34 +11,62 @@ angular.module('starter.controllers', [])
 
   // Form data for the login modal
   $scope.loginData = {};
-
+  $scope.signupData = {};
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('templates/login.html', {
+    id: '1',
     scope: $scope
   }).then(function(modal) {
-    $scope.modal = modal;
+    $scope.modalLogin = modal;
+  });
+
+  $ionicModal.fromTemplateUrl('templates/signup.html', {
+    id: '2',
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modalSignup = modal;
   });
 
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
-    $scope.modal.hide();
+    $scope.modalLogin.hide();
   };
 
   // Open the login modal
   $scope.login = function() {
-    $scope.modal.show();
+    $scope.modalLogin.show();
+    $scope.modalSignup.hide();
   };
+
+  $scope.register = function() {
+    $scope.closeLogin();
+    $scope.modalSignup.show();
+  };
+
 
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-
     // Simulate a login delay. Remove this and replace with your login
     // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
+
+    console.log("LOGIN user: " + $scope.loginData.email + " - PW: " + $scope.loginData.password);
+    $scope.closeLogin();
+    // $timeout(function() {
+    //   $scope.closeLogin();
+    // }, 1000);
   };
+
+  $scope.createNewUser = function() {
+    var newUser = {
+      users_name: $scope.signupData.username,
+      email: $scope.signupData.email,
+      password: $scope.signupData.password
+    };
+    console.log("creating new user" + newUser.users_name);
+    Api.createUser(function(user){
+      $scope.newUser = user;
+    })
+  }
 })
 
 .controller('GamesCtrl', function($scope, Api) {
