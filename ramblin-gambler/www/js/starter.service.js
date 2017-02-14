@@ -31,7 +31,7 @@ angular.module('starter.services', [])
     })
   }
   var getPendingWagers = function(callbackFn){
-    $http.get(ApiEndpoint.url + '/wagers').success(function(data){
+    $http.get(ApiEndpoint.url + '/games_users_wagers').success(function(data){
       callbackFn(data);
       console.log(data);
     })

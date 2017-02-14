@@ -15,10 +15,10 @@
       <ion-item ng-repeat="wager in $ctrl.pendingWagers" href="#/app/wager/{{wager.id}}">
         <div class="row">
           <div class="col">
-            {{wager.title}}
+            {{wager.type}}
           </div>
           <div class="col">
-            {{wager.user}}
+            {{wager.user1_name}} | {{wager.user2_name}}
           </div>
           <div class="col">
             {{wager.amount}}
