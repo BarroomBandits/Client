@@ -1,6 +1,8 @@
 angular.module('starter.controllers', [])
 
-.controller('appCtrl', function($scope, $ionicModal, $timeout, Api) {
+// .controller('appCtrl', function($scope, $ionicModal, $timeout, Api) {
+.controller('appCtrl', function($scope, $ionicModal, $timeout) {
+
   // const vm = this;
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -55,45 +57,77 @@ angular.module('starter.controllers', [])
     //   $scope.closeLogin();
     // }, 1000);
   };
-
-  $scope.createNewUser = function() {
+  function createNewUser (){
     var newUser = {
-      users_name: $scope.signupData.username,
-      email: $scope.signupData.email,
-      password: $scope.signupData.password
+      users_name: vm.signupData.username,
+      email: vm.signupData.email,
+      password: vm.signupData.password
     };
-    console.log("creating new user" + newUser.users_name);
-    Api.createUser(function(user){
-      $scope.newUser = user;
+    $http.post('http://localhost:3000/newuser', newUser).success(function(data){
+      console.log(data);
     })
   }
+  // $scope.createNewUser = function() {
+  //   var newUser = {
+  //     users_name: $scope.signupData.username,
+  //     email: $scope.signupData.email,
+  //     password: $scope.signupData.password
+  //   };
+  //   console.log("creating new user" + newUser.users_name);
+  //   Api.createUser(function(user){
+  //     $scope.newUser = user;
+  //   })
+  // }
 })
-
-.controller('gamesCtrl', function($scope, Api) {
-  const vm = this;
-  Api.getPendingGames(function(games){
-      vm.pendingGames = games
-  });
-  Api.getActiveGames(function(games){
-      vm.activeGames = games
-      console.log(vm.activeGames)
-  })
+.controller('gamesCtrl', function($scope, $http) {
+    const vm = this;
+    function getPendingGames () {
+      $http.get('http://localhost:3000/games_users').success(function(data){
+        vm.pendingGames = data
+      })
+    };
+    function getActiveGames () {
+      $http.get('http://localhost:3000/games_users_wagers').success(function(data){
+        vm.activeGames = data
+      })
+    }
+    getPendingGames();
+    getActiveGames();
 })
+// .controller('gamesCtrl', function($scope, Api) {
+//   const vm = this;
+//   Api.getPendingGames(function(games){
+//       vm.pendingGames = games
+//   });
+//   Api.getActiveGames(function(games){
+//       vm.activeGames = games
+//       console.log(vm.activeGames)
+//   })
+// })
 .controller('newWagerCtrl', function($scope, $stateParams) {
   const vm = this;
   console.log($stateParams.id);
 })
-.controller('wagersCtrl', function($scope, Api) {
+// .controller('wagersCtrl', function($scope, Api) {
+//   const vm = this;
+//   Api.getPendingWagers(function(wagers){
+//     vm.pendingWagers = wagers
+//     console.log(vm.pendingWagers)
+//   })
+//   // $scope.localWagers = [
+//   //   {title: 'Nuggets To Win', amount: "15 $hitcoins", user:"XphishXrulesX", id: 1},
+//   //   {title: 'Falcons To Lose', amount: "25 $hitcoins", user:"WinzerBro69", id: 2},
+//   //   {title: 'Milwaukee To Lose by 7', amount: "10 $hitcoins", user:"clownboy3", id: 3}
+//   // ]
+// })
+.controller('wagersCtrl', function($scope, $http) {
   const vm = this;
-  Api.getPendingWagers(function(wagers){
-    vm.pendingWagers = wagers
-    console.log(vm.pendingWagers)
-  })
-  // $scope.localWagers = [
-  //   {title: 'Nuggets To Win', amount: "15 $hitcoins", user:"XphishXrulesX", id: 1},
-  //   {title: 'Falcons To Lose', amount: "25 $hitcoins", user:"WinzerBro69", id: 2},
-  //   {title: 'Milwaukee To Lose by 7', amount: "10 $hitcoins", user:"clownboy3", id: 3}
-  // ]
+  function getPendingWagers(){
+      $http.get('http://localhost:3000/games_users_wagers').success(function(data){
+        vm.pendingWagers = data
+      })
+    }
+  getPendingWagers();
 })
 .controller('mapCtrl', function($scope) {
   const vm = this;
