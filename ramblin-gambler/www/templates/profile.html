@@ -4,12 +4,19 @@
     <div class="list card">
 
   <div class="item item-avatar">
-    <img src="mcfly.jpg">
-    <h2>Marty McFly</h2>
-    <p>November 05, 1955</p>
+    <img src="{{userInfo.avatar_url}}">
+    <h1>{{userInfo.users_name}}</h1>
+    <h2>$hitcoins: {{userInfo.purse}}</h2>
+    <h2>Experience: {{userInfo.experience}}</h2>
+    <h2>Level: {{userInfo.level}}</h2>
+    <h3>Ping Pong Record: {{userInfo.pong_games_won}} - {{userInfo.pong_games_played}}</h3>
   </div>
+  <div class="container">
+    <button class="button button-wide button-calm" type="button" name="changeAvatar">Change Avatar</button><br>
+    <button class="button button-wide button-energized" type="button" name="changePassword">Change Password</button>
 
-  <div class="item item-body">
+  </div>
+  <!-- <div class="item item-body">
     <img class="full-image" src="delorean.jpg">
     <p>
       This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
@@ -20,7 +27,7 @@
       <a href="#" class="subdued">1 Like</a>
       <a href="#" class="subdued">5 Comments</a>
     </p>
-  </div>
+  </div> -->
 
 </div>
   </ion-content>

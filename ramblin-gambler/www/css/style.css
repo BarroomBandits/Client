@@ -1,1 +1,5 @@
 /* Empty. Add your own CSS if you like */
+.button-wide {
+  width:80vw;
+  margin: 0 auto;
+}

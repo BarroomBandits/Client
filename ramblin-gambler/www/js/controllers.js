@@ -1,8 +1,9 @@
 angular.module('starter.controllers', [])
 
-.controller('appCtrl', function($scope, $ionicModal, $timeout, $http, $state) {
 
-  // const vm = this;
+.controller('appCtrl', function($scope, $window, $ionicModal, $timeout, $http, $state) {
+  // $scope.thisUser = {}
+  const vm = this;
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -49,13 +50,21 @@ angular.module('starter.controllers', [])
   $scope.doLogin = function() {
     // Simulate a login delay. Remove this and replace with your login
     // code if using a login system
-
-    console.log("LOGIN user: " + $scope.loginData.email + " - PW: " + $scope.loginData.password);
+    let user = {
+      email: $scope.loginData.email,
+      password: $scope.loginData.password
+    }
+    // console.log("LOGIN user: " + $scope.loginData.email + " - PW: " + $scope.loginData.password);
     $scope.closeLogin();
-    // $timeout(function() {
-    //   $scope.closeLogin();
-    // }, 1000);
+    $http.post('http://localhost:3000/signIn', user)
+      .then(function(result){
+        localStorage.token = result.data.token
+        // console.log(result.data);
+        $state.go('app.profile')
+        $window.location.reload()
+      })
   };
+
   $scope.createNewUser = function () {
     var newUser = {
       users_name: $scope.signupData.username,
@@ -64,13 +73,20 @@ angular.module('starter.controllers', [])
       password2: $scope.signupData.password2
     };
     console.log(newUser);
+    // var newUserData = {
+    //   users_name: $scope.signupData.username,
+    //   email: $scope.signupData.email,
+    //   achievements: "None",
+    //   shitcoin: 100
+    // }
 
     $http.post('http://localhost:3000/newuser', newUser)
       .then(function(data){
         console.log("data coming back --", data);
+        $scope.modalSignup.hide();
+        $state.go('app.profile')
+        // $scope.thisUser = data.data[0]
       });
-    $scope.modalSignup.hide();
-    $state.go('app.profile')
   }
 })
 .controller('gamesCtrl', function($scope, $http) {
@@ -103,20 +119,38 @@ angular.module('starter.controllers', [])
     }
   getPendingWagers();
 })
+
 .controller('mapCtrl', function($scope) {
   const vm = this;
 })
-.controller('profileCtrl', function($scope) {
+
+.controller('profileCtrl', function($scope, $stateParams, $http) {
   const vm = this;
+  getProfile();
+  function getProfile(){
+    $http.get('http://localhost:3000/profile', {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.token
+      }
+    }).then(function(result){
+      console.log(result)
+      $scope.userInfo = result.data[0]
+    }).catch(function(error){
+      console.log(error);
+    })
+  }
 })
+
 .controller('newGameCtrl', function($scope, $stateParams) {
   const vm = this;
   console.log($stateParams.id);
 })
+
 .controller('gameCtrl', function($scope, $stateParams) {
   const vm = this;
   console.log($stateParams.id);
 })
+
 .controller('activeGameCtrl', function($scope, $stateParams) {
   const vm = this;
   console.log($stateParams.id);

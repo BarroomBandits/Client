@@ -40,6 +40,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angularMoment'])
     templateUrl: 'templates/menu.html',
     controller: 'appCtrl'
   })
+
   .state('app.profile', {
     url: '/profile',
     views: {
