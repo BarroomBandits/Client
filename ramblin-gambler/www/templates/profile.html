@@ -10,12 +10,9 @@
         <h2>Level: {{userInfo.level}}</h2>
         <h3>Ping Pong Record: {{userInfo.pong_games_won}} - {{userInfo.pong_games_played}}</h3>
       </div>
-      <div class="container">
-        <button class="button col button-wide button-calm" type="button" name="changeAvatarButton">Change Avatar</button><br>
-        <button class="button col button-wide button-energized" type="button" name="changePasswordButton">Change Password</button><br>
-        <button class="button col button-wide button-assertive" type="button" name="logOutButton">Log Out</button>
+      <button ng-click="logOut()" class="button col button-wide button-assertive" type="button" name="logOutButton">Log Out</button>
 
-      </div>
+
 
 <!-- </div> -->
   </ion-content>

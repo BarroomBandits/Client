@@ -40,6 +40,13 @@ angular.module('starter.controllers', [])
     $scope.modalSignup.hide();
   };
 
+  $scope.logOut = function(){
+    console.log("logging out");
+    delete localStorage.token;
+    $scope.modalLogin.show();
+
+  }
+
   $scope.register = function() {
     $scope.closeLogin();
     $scope.modalSignup.show();
@@ -138,6 +145,7 @@ angular.module('starter.controllers', [])
 
   const vm = this;
   getProfile();
+
   function getProfile(){
     $http.get('http://localhost:3000/profile', {
       headers: {
