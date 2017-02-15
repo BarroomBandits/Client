@@ -1,28 +1,23 @@
 <ion-view view-title="Profile">
   <ion-content>
-    <h1>Profile</h1>
-    <div class="list card">
+    <!-- <div class="list card"> -->
 
-  <div class="item item-avatar">
-    <img src="mcfly.jpg">
-    <h2>Marty McFly</h2>
-    <p>November 05, 1955</p>
-  </div>
+      <div class="item item-avatar">
+        <img src="{{userInfo.avatar_url}}">
+        <h1>{{userInfo.users_name}}</h1>
+        <h2>$hitcoins: {{userInfo.purse}}</h2>
+        <h2>Experience: {{userInfo.experience}}</h2>
+        <h2>Level: {{userInfo.level}}</h2>
+        <h3>Ping Pong Record: {{userInfo.pong_games_won}} - {{userInfo.pong_games_played}}</h3>
+      </div>
+      <div class="container">
+        <button class="button col button-wide button-calm" type="button" name="changeAvatarButton">Change Avatar</button><br>
+        <button class="button col button-wide button-energized" type="button" name="changePasswordButton">Change Password</button><br>
+        <button class="button col button-wide button-assertive" type="button" name="logOutButton">Log Out</button>
 
-  <div class="item item-body">
-    <img class="full-image" src="delorean.jpg">
-    <p>
-      This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
-      the content is from a card-body consisting of an image and paragraph text. The footer
-      consists of tabs, icons aligned left, within the card-footer.
-    </p>
-    <p>
-      <a href="#" class="subdued">1 Like</a>
-      <a href="#" class="subdued">5 Comments</a>
-    </p>
-  </div>
+      </div>
 
-</div>
+<!-- </div> -->
   </ion-content>
   <div class="tabs">
     <a class="tab-item" href="#/app/acheivements">
