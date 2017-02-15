@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('appCtrl', function($scope, $ionicModal, $timeout, $http) {
+.controller('appCtrl', function($scope, $ionicModal, $timeout, $http, $state) {
 
   // const vm = this;
   // With the new view caching in Ionic, Controllers are only called
@@ -65,9 +65,12 @@ angular.module('starter.controllers', [])
     };
     console.log(newUser);
 
-    $http.post('http://localhost:3000/newuser', newUser).success(function(data){
-      console.log(data);
-    });
+    $http.post('http://localhost:3000/newuser', newUser)
+      .then(function(data){
+        console.log("data coming back --", data);
+      });
+    $scope.modalSignup.hide();
+    $state.go('app.profile')
   }
 })
 .controller('gamesCtrl', function($scope, $http) {
