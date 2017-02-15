@@ -32,60 +32,105 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-    .state('app', {
+  .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
+    controller: 'appCtrl'
   })
-
+  .state('app.profile', {
+    url: '/profile',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/profile.html',
+        controller: 'profileCtrl as $ctrl'
+      }
+    }
+  })
   .state('app.map', {
     url: '/map',
     views: {
       'menuContent': {
-        templateUrl: 'templates/map.html'
+        templateUrl: 'templates/map.html',
+        controller: 'mapCtrl as $ctrl'
+      }
+    }
+  })
+  .state('app.new-game', {
+    url: '/new-game',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/new-game.html',
+        controller: 'newGameCtrl as $ctrl'
+      }
+    }
+  })
+  .state('app.game', {
+    url: '/game/:id',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/game.html',
+        controller: 'gameCtrl as $ctrl'
+      }
+    }
+  })
+  .state('app.games', {
+    url: '/games',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/games.html',
+        controller: 'gamesCtrl as $ctrl'
       }
     }
   })
 
-  .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html'
-        }
+  .state('app.activeGames', {
+    url: '/games-active',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/games-active.html',
+        controller: 'gamesCtrl as $ctrl'
       }
-    })
-    .state('app.games', {
-      url: '/games',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/games.html',
-          controller: 'GamesCtrl as $ctrl'
-        }
+    }
+  })
+  .state('app.activeGame', {
+    url: '/game-active/:id',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/game-active.html',
+        controller: 'activeGameCtrl as $ctrl'
       }
-    })
-    .state('app.activeGames', {
-      url: '/games-active',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/games-active.html',
-          controller: 'GamesCtrl as $ctrl'
-        }
+    }
+  })
+  .state('app.new-wager', {
+    url: '/new-wager',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/new-wager.html',
+        controller: 'newWagerCtrl as $ctrl'
       }
-    })
-    .state('app.wagers', {
-      url: '/wagers',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/wagers.html',
-          controller: 'WagersCtrl as $ctrl'
-        }
+    }
+  })
+  .state('app.wagers', {
+    url: '/wagers',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/wagers.html',
+        controller: 'wagersCtrl as $ctrl'
       }
-    })
-    // .state('app.signup', {
-    //   url: '/signup'
-    // })
+    }
+  });
+  // .state('app.browse', {
+  //     url: '/browse',
+  //     views: {
+  //       'menuContent': {
+  //         templateUrl: 'templates/browse.html'
+  //       }
+  //     }
+  //   })
+  // // .state('app.signup', {
+  //   url: '/signup'
+  // })
   // .state('app.single', {
   //   url: '/playlists/:playlistId',
   //   views: {
@@ -96,5 +141,5 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   //   }
   // });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/games');
+  $urlRouterProvider.otherwise('/app/profile');
 });

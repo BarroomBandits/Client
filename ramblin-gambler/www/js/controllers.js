@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, Api) {
+.controller('appCtrl', function($scope, $ionicModal, $timeout, Api) {
   // const vm = this;
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -69,21 +69,21 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('GamesCtrl', function($scope, Api) {
-
+.controller('gamesCtrl', function($scope, Api) {
   const vm = this;
   Api.getPendingGames(function(games){
       vm.pendingGames = games
   });
-
   Api.getActiveGames(function(games){
       vm.activeGames = games
       console.log(vm.activeGames)
   })
-
 })
-
-.controller('WagersCtrl', function($scope, Api) {
+.controller('newWagerCtrl', function($scope, $stateParams) {
+  const vm = this;
+  console.log($stateParams.id);
+})
+.controller('wagersCtrl', function($scope, Api) {
   const vm = this;
   Api.getPendingWagers(function(wagers){
     vm.pendingWagers = wagers
@@ -95,6 +95,23 @@ angular.module('starter.controllers', [])
   //   {title: 'Milwaukee To Lose by 7', amount: "10 $hitcoins", user:"clownboy3", id: 3}
   // ]
 })
-
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+.controller('mapCtrl', function($scope) {
+  const vm = this;
+})
+.controller('profileCtrl', function($scope) {
+  const vm = this;
+})
+.controller('newGameCtrl', function($scope, $stateParams) {
+  const vm = this;
+  console.log($stateParams.id);
+})
+.controller('gameCtrl', function($scope, $stateParams) {
+  const vm = this;
+  console.log($stateParams.id);
+})
+.controller('activeGameCtrl', function($scope, $stateParams) {
+  const vm = this;
+  console.log($stateParams.id);
 });
+// .controller('PlaylistCtrl', function($scope, $stateParams) {
+// });
