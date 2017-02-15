@@ -58,13 +58,40 @@ angular.module('starter.controllers', ['ionic'])
   const vm = this;
 
   vm.$onInit = function ($scope) {
-    var myLatLng = {lat: -25.363, lng: 131.044};
-    var mapOptions = {
-        zoom: 4,
-        center: myLatLng
-    }
-    vm.map = new google.maps.Map(document.getElementById('map'), mapOptions);
-  }
+    vm.map = new google.maps.Map(document.getElementById('map'), {
+         center: {lat: -34.397, lng: 150.644},
+         zoom: 6
+       });
+       var infoWindow = new google.maps.InfoWindow({map: map});
+
+       // Try HTML5 geolocation.
+       if (navigator.geolocation) {
+         console.log(navigator.geolocation);
+         navigator.geolocation.getCurrentPosition(function(position) {
+           var pos = {
+             lat: position.coords.latitude,
+             lng: position.coords.longitude
+           };
+           console.log(position.coords);
+           infoWindow.setPosition(pos);
+           infoWindow.setContent('Location found.');
+           vm.map.setCenter(pos);
+         }, function() {
+           handleLocationError(true, infoWindow, vm.map.getCenter());
+         });
+       } else {
+         // Browser doesn't support Geolocation
+         handleLocationError(false, infoWindow, vm.map.getCenter());
+       }
+
+
+     function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+       infoWindow.setPosition(pos);
+       infoWindow.setContent(browserHasGeolocation ?
+                             'Error: The Geolocation service failed.' :
+                             'Error: Your browser doesn\'t support geolocation.');
+     }
+   }
 })
 
 
