@@ -89,6 +89,7 @@ angular.module('starter.controllers', [])
       });
   }
 })
+
 .controller('gamesCtrl', function($scope, $http) {
     const vm = this;
     function getPendingGames () {
@@ -122,9 +123,19 @@ angular.module('starter.controllers', [])
 
 .controller('mapCtrl', function($scope) {
   const vm = this;
+  vm.$onInit = function ($scope) {
+    var myLatLng = {lat: -25.363, lng: 131.044};
+    var mapOptions = {
+        zoom: 4,
+        center: myLatLng
+    }
+    vm.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+  }
 })
 
+
 .controller('profileCtrl', function($scope, $stateParams, $http) {
+
   const vm = this;
   getProfile();
   function getProfile(){
