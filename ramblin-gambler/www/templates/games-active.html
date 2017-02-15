@@ -15,7 +15,7 @@
       </div>
     </div>
     <ion-list>
-      <ion-item ng-repeat="game in $ctrl.activeGames" href="#/app/games/{{game.id}}">
+      <ion-item ng-repeat="game in $ctrl.activeGames" href="#/app/game-active/{{game.id}}">
         <div class="row">
           <div class="col">
             {{game.type}}
@@ -33,4 +33,15 @@
       </ion-item>
     </ion-list>
   </ion-content>
+  <div class="tabs">
+    <a class="tab-item" href="#/app/games">
+      Pending Games
+    </a>
+    <a class="tab-item" href="#/app/games-active">
+      Active Games
+    </a>
+    <a class="tab-item" href="#/app/new-game">
+      New Game
+    </a>
+  </div>
 </ion-view>
