@@ -170,7 +170,7 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('newGameCtrl', function($geolocation, $scope, $stateParams, $http) {
+.controller('newGameCtrl', function($state, $geolocation, $scope, $stateParams, $http) {
   const vm = this;
   vm.gameTypes = ["Ping-Pong", "H-O-R-S-E", "Darts", "Pool", "Pro Sports Wager"]
   $scope.createGame = function (){
@@ -191,20 +191,38 @@ angular.module('starter.controllers', [])
 
               };
               console.log(newGame)
+              $http.post('http://localhost:3000/games', {
+                type: newGame.type,
+                time: newGame.time,
+                user_id: newGame.creator_id,
+                p1_score: newGame.p1_score,
+                p2_score: newGame.p2_score,
+                is_active: "pending",
+                lat: newGame.lat,
+                long: newGame.long
+              })
+           }).then(result=>{
+             console.log(result)
+             $state.go('app.games')
            });
-    $http.post('http://localhost:3000/games', {
-      type: newGame.type,
-      time: newGame.time,
-      p1_score: newGame.p1_score,
-      p2_score: newGame.p2_score,
-      is_active: newGame.is_active
-    })
+
   }
 })
 
-.controller('gameCtrl', function($scope, $stateParams) {
+.controller('gameCtrl', function($http, $scope, $stateParams) {
   const vm = this;
-  console.log($stateParams.id);
+  $http.get('http://localhost:3000/games/'+ $stateParams.id)
+    .then(data=>{
+      console.log(data)
+      vm.game_params = {
+        game_id: data.data.id,
+        creator_name: "Matt" ,
+        start_time: data.data.time,
+        game_type: data.data.type,
+      }
+    })
+
+  console.log("state params: ", $stateParams);
 })
 
 .controller('activeGameCtrl', function($scope, $stateParams) {
