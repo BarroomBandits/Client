@@ -41,6 +41,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angularMoment'])
     controller: 'appCtrl'
   })
 
+  .state('app.login', {
+    url: '/login',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/login.html',
+        controller: 'loginCtrl as $ctrl'
+      }
+    }
+  })
+
   .state('app.profile', {
     url: '/profile',
     views: {
@@ -144,5 +154,5 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angularMoment'])
   //   }
   // });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/profile');
+  $urlRouterProvider.otherwise('/app/login');
 });

@@ -97,6 +97,11 @@ angular.module('starter.controllers', [])
   }
 })
 
+.controller('loginCtrl', function($scope, $stateParams) {
+  const vm = this;
+  console.log($stateParams.id);
+})
+
 .controller('gamesCtrl', function($scope, $http) {
     const vm = this;
     function getPendingGames () {
