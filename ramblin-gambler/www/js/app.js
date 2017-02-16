@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 // angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'angularMoment'])
-angular.module('starter', ['ionic', 'starter.controllers', 'angularMoment'])
+angular.module('starter', ['ionic', 'starter.controllers', 'angularMoment', 'ngGeolocation'])
 
 // .constant('ApiEndpoint', {
 //   url: 'http://localhost:3000'

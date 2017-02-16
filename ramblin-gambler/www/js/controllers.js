@@ -67,6 +67,7 @@ angular.module('starter.controllers', [])
     $http.post('http://localhost:3000/signIn', user)
       .then(function(result){
         localStorage.token = result.data.token
+        // localStorage.user_id =
         // console.log(result.data);
         $state.go('app.profile')
         $window.location.reload()
@@ -100,7 +101,7 @@ angular.module('starter.controllers', [])
 
 .controller('loginCtrl', function($scope, $stateParams) {
   const vm = this;
-  console.log($stateParams.id);
+  // console.log($stateParams.id);
 })
 
 .controller('gamesCtrl', function($scope, $http) {
@@ -159,16 +160,46 @@ angular.module('starter.controllers', [])
       }
     }).then(function(result){
       console.log(result)
+      localStorage.user_id = result.data[0].id;
+      localStorage.username = result.data[0].users_name;
       $scope.userInfo = result.data[0]
+
     }).catch(function(error){
       console.log(error);
     })
   }
 })
 
-.controller('newGameCtrl', function($scope, $stateParams) {
+.controller('newGameCtrl', function($geolocation, $scope, $stateParams, $http) {
   const vm = this;
-  console.log($stateParams.id);
+  vm.gameTypes = ["Ping-Pong", "H-O-R-S-E", "Darts", "Pool", "Pro Sports Wager"]
+  $scope.createGame = function (){
+    $geolocation.getCurrentPosition({
+              timeout: 60000
+           }).then(function(position) {
+              $scope.myPosition = position;
+              let newGame = {
+                type: vm.selectedType,
+                creator: localStorage.username,
+                creator_id: localStorage.user_id,
+                time: new Date(),
+                p1_score: 0,
+                p2_score: 0,
+                is_active: "pending",
+                lat: $scope.myPosition.coords.latitude,
+                long: $scope.myPosition.coords.longitude
+
+              };
+              console.log(newGame)
+           });
+    $http.post('http://localhost:3000/games', {
+      type: newGame.type,
+      time: newGame.time,
+      p1_score: newGame.p1_score,
+      p2_score: newGame.p2_score,
+      is_active: newGame.is_active
+    })
+  }
 })
 
 .controller('gameCtrl', function($scope, $stateParams) {
