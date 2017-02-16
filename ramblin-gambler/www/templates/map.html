@@ -2,11 +2,86 @@
   <ion-content>
     <h1>Map View</h1>
   <body>
-    <!-- <script async defer
+<!-- <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB13ycngGq5Cs3gOhgvXqfkPvegBvFr8Dg">
     </script> -->
     <div id="map" ng-controller="mapCtrl"></div>
 
   </body>
+  </ion-content>
+</ion-view>
+
+<ion-view view-title="Map">
+  <ion-content>
+    <h1>Map View</h1>
+    <!-- <!DOCTYPE html>
+    <html>
+    <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple markers</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head> -->
+  <body>
+    <!-- <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB13ycngGq5Cs3gOhgvXqfkPvegBvFr8Dg">
+    </script> -->
+    <!-- <script>
+      angular.module('starter', ['ionic', 'ngMap']);
+          angular.module('starter').controller('MapCtrl', function(NgMap) {
+            let vm = this;
+              NgMap.getMap().then(function(map) {
+                  vm.showCustomMarker= function(evt) {
+                    map.customMarkers.setVisible(true);
+                    map.customMarkers.setPosition(this.getPosition());
+                  };
+                  vm.closeCustomMarker= function(evt) {
+                    this.style.display = 'none';
+                  };
+                });
+              });
+
+    </script> -->
+    <div ng-controller="mapCtrl">
+      <ng-map id="map" zoom="14" center="current-location" >
+        <shape name="circle" no-watcher="true"
+          stroke-color="#FF0000"
+          stroke-opacity="0.5"
+          stroke-weight="1"
+          fill-color="#FF0000"
+          fill-opacity="0.35"
+          center="current-location"
+          radius="500">
+        </shape>
+          <marker position="1644 Platte St, Denver, CO 80202" on-click="$ctrl.showCustomMarker()"></marker>
+          <marker position="10 pennsylvania ave, washington DC" on-click="$ctrl.showCustomMarker()"></marker>
+          <marker position="2600 pennsylvania ave, washington DC" on-click="$ctrl.showCustomMarker()"></marker>
+       <custom-marker id="foo" position="10 pennsylvania ave, washington DC" on-click="$ctrl.closeCustomMarker()">
+         <div>
+           <img width="64" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Donald_Trump_August_19%2C_2015_%28cropped%29.jpg/220px-Donald_Trump_August_19%2C_2015_%28cropped%29.jpg" align="left" /> Hi, How Are You? <br/>
+           My Name is Trump, and people call me as Mr. President.<br/>
+           We live in this house.<br/>
+           <br/>
+           <img width="300" src="http://cdn.cstatic.net/images/gridfs/53b42fd3f92ea17d970280b4/Screen%20Shot%202014-07-02%20at%2012.07.54%20PM.png" />
+           <br/>
+           If you want to visit us, please click <a href="https://www.whitehouse.gov">here</a>
+       </custom-marker>
+      </ng-map>
+    </div>
+  </div>
+  </body>
+<!-- </html> -->
   </ion-content>
 </ion-view>

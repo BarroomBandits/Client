@@ -135,18 +135,129 @@ angular.module('starter.controllers', [])
   getPendingWagers();
 })
 
-.controller('mapCtrl', function($scope) {
+// .controller('mapCtrl', function($scope) {
+//   const vm = this;
+//   vm.$onInit = function ($scope) {
+//     var myLatLng = {lat: -25.363, lng: 131.044};
+//     var mapOptions = {
+//         zoom: 4,
+//         center: myLatLng
+//     }
+//     vm.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+//   }
+// })
+
+.controller('mapCtrl', function(NgMap) {
+console.log(NgMap)
   const vm = this;
+
   vm.$onInit = function ($scope) {
-    var myLatLng = {lat: -25.363, lng: 131.044};
-    var mapOptions = {
-        zoom: 4,
-        center: myLatLng
-    }
-    vm.map = new google.maps.Map(document.getElementById('map'), mapOptions);
-  }
+
+
+  //   vm.map = new google.maps.Map(document.getElementById('map'), {
+  //        center: {lat: -34.397, lng: 150.644},
+  //        zoom: 6
+  //      });
+  //      var infoWindow = new google.maps.InfoWindow({map: map});
+   //
+  //      // Try HTML5 geolocation.
+  //      if (navigator.geolocation) {
+  //        console.log(navigator.geolocation);
+  //        navigator.geolocation.getCurrentPosition(function(position) {
+  //          var pos = {
+  //            lat: position.coords.latitude,
+  //            lng: position.coords.longitude
+  //          };
+  //          console.log(position.coords);
+  //          infoWindow.setPosition(pos);
+  //          infoWindow.setContent('Location found.');
+  //          vm.map.setCenter(pos);
+  //        }, function() {
+  //          handleLocationError(true, infoWindow, vm.map.getCenter());
+  //        });
+  //      } else {
+  //        // Browser doesn't support Geolocation
+  //        handleLocationError(false, infoWindow, vm.map.getCenter());
+  //      }
+   //
+   //
+  //    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  //      infoWindow.setPosition(pos);
+  //      infoWindow.setContent(browserHasGeolocation ?
+  //                            'Error: The Geolocation service failed.' :
+  //                            'Error: Your browser doesn\'t support geolocation.');
+  //    }
+   }
+  //  console.log("I'm the navigator", position.coords);
+   NgMap.getMap().then(function(map) {
+            vm.showCustomMarker= function(evt) {
+              map.customMarkers.foo.setVisible(true);
+              map.customMarkers.foo.setPosition(this.getPosition());
+            };
+            vm.closeCustomMarker= function(evt) {
+              this.style.display = 'none';
+            };
+          });
+
 })
 
+    // .controller('MapCtrl', function($scope, $ionicLoading, $compile) {
+    //   function initialize() {
+    //     var myLatlng = new google.maps.LatLng(43.07493,-89.381388);
+    //
+    //     var mapOptions = {
+    //       center: myLatlng,
+    //       zoom: 16,
+    //       mapTypeId: google.maps.MapTypeId.ROADMAP
+    //     };
+    //     var map = new google.maps.Map(document.getElementById("map"),
+    //         mapOptions);
+    //
+    //     //Marker + infowindow + angularjs compiled ng-click
+    //     var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
+    //     var compiled = $compile(contentString)($scope);
+    //
+    //     var infowindow = new google.maps.InfoWindow({
+    //       content: compiled[0]
+    //     });
+    //
+    //     var marker = new google.maps.Marker({
+    //       position: myLatlng,
+    //       map: map,
+    //       title: 'Uluru (Ayers Rock)'
+    //     });
+    //
+    //     google.maps.event.addListener(marker, 'click', function() {
+    //       infowindow.open(map,marker);
+    //     });
+    //
+    //     $scope.map = map;
+    //   }
+    //   google.maps.event.addDomListener(window, 'load', initialize);
+    //
+    //   $scope.centerOnMe = function() {
+    //     if(!$scope.map) {
+    //       return;
+    //     }
+    //
+    //     $scope.loading = $ionicLoading.show({
+    //       content: 'Getting current location...',
+    //       showBackdrop: false
+    //     });
+    //
+    //     navigator.geolocation.getCurrentPosition(function(pos) {
+    //       $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+    //       $scope.loading.hide();
+    //     }, function(error) {
+    //       alert('Unable to get location: ' + error.message);
+    //     });
+    //   };
+    //
+    //   $scope.clickTest = function() {
+    //     alert('Example of infowindow with ng-click')
+    //   };
+    //
+    // })
 
 .controller('profileCtrl', function($scope, $stateParams, $http) {
 
@@ -175,23 +286,21 @@ angular.module('starter.controllers', [])
   vm.gameTypes = ["Ping-Pong", "H-O-R-S-E", "Darts", "Pool", "Pro Sports Wager"]
   $scope.createGame = function (){
     $geolocation.getCurrentPosition({
-              timeout: 60000
-           }).then(function(position) {
-              $scope.myPosition = position;
-              let newGame = {
-                type: vm.selectedType,
-                creator: localStorage.username,
-                creator_id: localStorage.user_id,
-                time: new Date(),
-                p1_score: 0,
-                p2_score: 0,
-                is_active: "pending",
-                lat: $scope.myPosition.coords.latitude,
-                long: $scope.myPosition.coords.longitude
-
-              };
-              console.log(newGame)
-           });
+        timeout: 60000
+     }).then(function(position) {
+        $scope.myPosition = position;
+        let newGame = {
+          type: vm.selectedType,
+          creator: localStorage.username,
+          creator_id: localStorage.user_id,
+          time: new Date(),
+          p1_score: 0,
+          p2_score: 0,
+          is_active: "pending",
+          lat: $scope.myPosition.coords.latitude,
+          long: $scope.myPosition.coords.longitude
+        };
+     });
     $http.post('http://localhost:3000/games', {
       type: newGame.type,
       time: newGame.time,
