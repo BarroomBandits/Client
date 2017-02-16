@@ -6,8 +6,8 @@
       <h3>Creator: {{$ctrl.game_params.creator_name}}</h3>
       <h3>Created: <span am-time-ago="$ctrl.game_params.start_time"></span></h3>
       <h3>Game Type: {{$ctrl.game_params.game_type}}</h3>
-      <h3>Distance: 1.2 miles</h3>
-      <button class="button button-wide button-positive" type="button" name="joinGame">Join!!</button>
+      <h3>Distance: {{$ctrl.distanceToHere}} miles</h3>
+      <button ng-click="joinGame()" class="button button-wide button-positive" type="button" name="joinGame">Join!!</button>
 </div>
   </ion-content>
 </ion-view>
