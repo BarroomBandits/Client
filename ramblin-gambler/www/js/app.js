@@ -123,6 +123,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angularMoment'])
       }
     }
   });
+
   // .state('app.browse', {
   //     url: '/browse',
   //     views: {
@@ -144,5 +145,5 @@ angular.module('starter', ['ionic', 'starter.controllers', 'angularMoment'])
   //   }
   // });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/profile');
+  $urlRouterProvider.otherwise('/app/games');
 });

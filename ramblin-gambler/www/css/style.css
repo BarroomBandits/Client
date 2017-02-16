@@ -9,6 +9,11 @@
   height: 100%;
 }
 
+.a-input-field {
+  outline:grey solid 1px;
+  margin-right:1em;
+}
+
 .button-wide {
   width:65vw;
   margin: 0 auto;
