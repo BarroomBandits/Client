@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ionic'])
+angular.module('starter.controllers', ['ionic', 'ngMap'])
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
   // With the new view caching in Ionic, Controllers are only called
@@ -53,46 +53,61 @@ angular.module('starter.controllers', ['ionic'])
 
 })
 
-.controller('MapCtrl', function() {
-
+.controller('MapCtrl', function(NgMap) {
+console.log(NgMap)
   const vm = this;
 
   vm.$onInit = function ($scope) {
-    vm.map = new google.maps.Map(document.getElementById('map'), {
-         center: {lat: -34.397, lng: 150.644},
-         zoom: 6
-       });
-       var infoWindow = new google.maps.InfoWindow({map: map});
-
-       // Try HTML5 geolocation.
-       if (navigator.geolocation) {
-         console.log(navigator.geolocation);
-         navigator.geolocation.getCurrentPosition(function(position) {
-           var pos = {
-             lat: position.coords.latitude,
-             lng: position.coords.longitude
-           };
-           console.log(position.coords);
-           infoWindow.setPosition(pos);
-           infoWindow.setContent('Location found.');
-           vm.map.setCenter(pos);
-         }, function() {
-           handleLocationError(true, infoWindow, vm.map.getCenter());
-         });
-       } else {
-         // Browser doesn't support Geolocation
-         handleLocationError(false, infoWindow, vm.map.getCenter());
-       }
 
 
-     function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-       infoWindow.setPosition(pos);
-       infoWindow.setContent(browserHasGeolocation ?
-                             'Error: The Geolocation service failed.' :
-                             'Error: Your browser doesn\'t support geolocation.');
-     }
+
+  //   vm.map = new google.maps.Map(document.getElementById('map'), {
+  //        center: {lat: -34.397, lng: 150.644},
+  //        zoom: 6
+  //      });
+  //      var infoWindow = new google.maps.InfoWindow({map: map});
+   //
+  //      // Try HTML5 geolocation.
+  //      if (navigator.geolocation) {
+  //        console.log(navigator.geolocation);
+  //        navigator.geolocation.getCurrentPosition(function(position) {
+  //          var pos = {
+  //            lat: position.coords.latitude,
+  //            lng: position.coords.longitude
+  //          };
+  //          console.log(position.coords);
+  //          infoWindow.setPosition(pos);
+  //          infoWindow.setContent('Location found.');
+  //          vm.map.setCenter(pos);
+  //        }, function() {
+  //          handleLocationError(true, infoWindow, vm.map.getCenter());
+  //        });
+  //      } else {
+  //        // Browser doesn't support Geolocation
+  //        handleLocationError(false, infoWindow, vm.map.getCenter());
+  //      }
+   //
+   //
+  //    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  //      infoWindow.setPosition(pos);
+  //      infoWindow.setContent(browserHasGeolocation ?
+  //                            'Error: The Geolocation service failed.' :
+  //                            'Error: Your browser doesn\'t support geolocation.');
+  //    }
    }
+  //  console.log("I'm the navigator", position.coords);
+   NgMap.getMap().then(function(map) {
+            vm.showCustomMarker= function(evt) {
+              map.customMarkers.foo.setVisible(true);
+              map.customMarkers.foo.setPosition(this.getPosition());
+            };
+            vm.closeCustomMarker= function(evt) {
+              this.style.display = 'none';
+            };
+          });
+
 })
+
 
 
 
