@@ -107,14 +107,17 @@ angular.module('starter.controllers', [])
 .controller('gamesCtrl', function($scope, $http) {
     const vm = this;
     function getPendingGames () {
+
       $http.get('http://localhost:3000/games_users/pending').success(function(data){
+        console.log(data);
         vm.pendingGames = data
       })
     };
     function getActiveGames () {
       $http.get('http://localhost:3000/games_users/active/'+ localStorage.user_id).success(function(data){
-        vm.activeGames = data
+        console.log(localStorage.user_id)
         console.log(data)
+        vm.activeGames = data
       })
     }
     getPendingGames();
@@ -175,6 +178,7 @@ angular.module('starter.controllers', [])
   const vm = this;
   vm.gameTypes = ["Ping-Pong", "H-O-R-S-E", "Darts", "Pool", "Pro Sports Wager"]
   $scope.createGame = function (){
+    console.log(localStorage.user_id)
     $geolocation.getCurrentPosition({
               timeout: 60000
            }).then(function(position) {
@@ -196,6 +200,7 @@ angular.module('starter.controllers', [])
                 type: newGame.type,
                 time: newGame.time,
                 creator: newGame.creator,
+                // user_id: localStorage.user_id,
                 user_id: newGame.creator_id,
                 p1_score: newGame.p1_score,
                 p2_score: newGame.p2_score,
@@ -271,7 +276,7 @@ angular.module('starter.controllers', [])
       $http.post('http://localhost:3000/games/'+ $stateParams.id + '/user/' + localStorage.user_id)
         .then((data)=>{
           console.log(data)
-          $state.go('app.activeGame', {param:data.data[0]})
+          $state.go('app.activeGame', {id:data.data[0]})
 
         })
       }
@@ -287,8 +292,10 @@ angular.module('starter.controllers', [])
 .controller('activeGameCtrl', function($http, $scope, $stateParams) {
   console.log("clicked a game");
   const vm = this;
+  console.log("state Params dot ID : ", $stateParams.id);
   $http.get('http://localhost:3000/games/' + $stateParams.id)
   .then(gameData=>{
+    vm.gameData = gameData
     console.log(gameData)
     vm.single_game = {
       p1_name: localStorage.username,
@@ -300,18 +307,23 @@ angular.module('starter.controllers', [])
     switch (gameData.data.type){
       case "Ping-Pong":
         vm.single_game.game_icon = "http://www.pingpongstandard.com/wp-content/uploads/2015/05/cropped-circleicon02.png"
+        vm.current_game_type = "pong"
         break;
       case "H-O-R-S-E":
         vm.single_game.game_icon = "https://s3.amazonaws.com/gs.apps.icons/J0O1IBBqEeSIGCIACyygwg/basketball-512.png"
+        vm.current_game_type = "horse"
         break;
       case "Darts":
         vm.single_game.game_icon = "https://cdn2.iconfinder.com/data/icons/flat-seo-web-ikooni/128/flat_seo-06-512.png"
+        vm.current_game_type = "darts"
         break;
       case "Pool":
         vm.single_game.game_icon = "http://icons.iconarchive.com/icons/barkerbaggies/pool-ball/256/Ball-8-icon.png"
+        vm.current_game_type = "pool"
         break;
       case "Pro Sports Wager":
         vm.single_game.game_icon = "https://d30y9cdsu7xlg0.cloudfront.net/png/96575-200.png"
+        vm.current_game_type = "pro"
         break;
   }
 });
@@ -343,7 +355,86 @@ angular.module('starter.controllers', [])
       p1_winner: p1Wins,
       is_active: "complete"
     })
-    
+    console.log($stateParams.id);
+    // $http.get('http://localhost:3000/users/' + localStorage.user_id)
+    //   .then(playerData=>{
+    //     vm.playerData = playerData;
+    //     console.log(vm.playerData)
+    //     switch (vm.gameData.data.type){
+    //       case "Ping-Pong":
+    //         var pong_played = vm.playerData.data[0].pong_games_played + 1
+    //         $http.put('http://localhost:3000/user/' + localStorage.user_id, {
+    //           pong_games_played: pong_played
+    //         })
+    //         break;
+    //       case "H-O-R-S-E":
+    //         var horse_played = vm.playerData.data[0].horse_games_played + 1
+    //         $http.put('http://localhost:3000/user/' + localStorage.user_id, {
+    //           horse_games_played: horse_played
+    //         })
+    //         break;
+    //       case "Darts":
+    //         var darts_played = vm.playerData.data[0].darts_games_played + 1
+    //         $http.put('http://localhost:3000/user/' + localStorage.user_id, {
+    //           darts_games_played: darts_played
+    //         })
+    //         break;
+    //       case "Pool":
+    //         var pool_played = vm.playerData.data[0].pool_games_played + 1
+    //         $http.put('http://localhost:3000/user/' + localStorage.user_id, {
+    //           pool_games_played: pool_played
+    //         })
+    //         break;
+    //       case "Pro Sports Wager":
+    //         var pro_played = vm.playerData.data[0].pro_games_played + 1
+    //         $http.put('http://localhost:3000/user/' + localStorage.user_id, {
+    //           pro_games_played: pro_played
+    //         })
+    //         break;
+    //     }
+    //   })
+      // $http.get('http://localhost:3000/users/' + gameData.data.creator_id)
+      //   .then(playerData=>{
+      //     vm.playerData = playerData;
+      //     console.log(vm.playerData)
+      //     switch (vm.gameData.data.type){
+      //       case "Ping-Pong":
+      //         var pong_played = vm.playerData.data[0].pong_games_played + 1
+      //         $http.put('http://localhost:3000/user/' + localStorage.user_id, {
+      //           pong_games_played: pong_played
+      //         })
+      //         break;
+      //       case "H-O-R-S-E":
+      //         var horse_played = vm.playerData.data[0].horse_games_played + 1
+      //         $http.put('http://localhost:3000/user/' + localStorage.user_id, {
+      //           horse_games_played: horse_played
+      //         })
+      //         break;
+      //       case "Darts":
+      //         var darts_played = vm.playerData.data[0].darts_games_played + 1
+      //         $http.put('http://localhost:3000/user/' + localStorage.user_id, {
+      //           darts_games_played: darts_played
+      //         })
+      //         break;
+      //       case "Pool":
+      //         var pool_played = vm.playerData.data[0].pool_games_played + 1
+      //         $http.put('http://localhost:3000/user/' + localStorage.user_id, {
+      //           pool_games_played: pool_played
+      //         })
+      //         break;
+      //       case "Pro Sports Wager":
+      //         var pro_played = vm.playerData.data[0].pro_games_played + 1
+      //         $http.put('http://localhost:3000/user/' + localStorage.user_id, {
+      //           pro_games_played: pro_played
+      //         })
+      //         break;
+      //     }
+      //   })
+
+    // $http.put("http://localhost:3000/users/" + localStorage.user_id, {
+    //   vm.current_game_type + "_games_played":"asdj"
+    // })
+
   }
 
 });
