@@ -148,117 +148,21 @@ angular.module('starter.controllers', [])
 //   }
 // })
 
-.controller('mapCtrl', function(NgMap) {
-console.log(NgMap)
+.controller('mapCtrl', function($scope, $http) {
+
   const vm = this;
-
-  vm.$onInit = function ($scope) {
-
-
-  //   vm.map = new google.maps.Map(document.getElementById('map'), {
-  //        center: {lat: -34.397, lng: 150.644},
-  //        zoom: 6
-  //      });
-  //      var infoWindow = new google.maps.InfoWindow({map: map});
-   //
-  //      // Try HTML5 geolocation.
-  //      if (navigator.geolocation) {
-  //        console.log(navigator.geolocation);
-  //        navigator.geolocation.getCurrentPosition(function(position) {
-  //          var pos = {
-  //            lat: position.coords.latitude,
-  //            lng: position.coords.longitude
-  //          };
-  //          console.log(position.coords);
-  //          infoWindow.setPosition(pos);
-  //          infoWindow.setContent('Location found.');
-  //          vm.map.setCenter(pos);
-  //        }, function() {
-  //          handleLocationError(true, infoWindow, vm.map.getCenter());
-  //        });
-  //      } else {
-  //        // Browser doesn't support Geolocation
-  //        handleLocationError(false, infoWindow, vm.map.getCenter());
-  //      }
-   //
-   //
-  //    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-  //      infoWindow.setPosition(pos);
-  //      infoWindow.setContent(browserHasGeolocation ?
-  //                            'Error: The Geolocation service failed.' :
-  //                            'Error: Your browser doesn\'t support geolocation.');
-  //    }
-   }
-  //  console.log("I'm the navigator", position.coords);
-   NgMap.getMap().then(function(map) {
-            vm.showCustomMarker= function(evt) {
-              map.customMarkers.foo.setVisible(true);
-              map.customMarkers.foo.setPosition(this.getPosition());
-            };
-            vm.closeCustomMarker= function(evt) {
-              this.style.display = 'none';
-            };
-          });
+  $http.get('http://localhost:3000/games').success(function(data) {
+    vm.allGames = data;
+    console.log(data)
+  })
 
 })
 
-    // .controller('MapCtrl', function($scope, $ionicLoading, $compile) {
-    //   function initialize() {
-    //     var myLatlng = new google.maps.LatLng(43.07493,-89.381388);
-    //
-    //     var mapOptions = {
-    //       center: myLatlng,
-    //       zoom: 16,
-    //       mapTypeId: google.maps.MapTypeId.ROADMAP
-    //     };
-    //     var map = new google.maps.Map(document.getElementById("map"),
-    //         mapOptions);
-    //
-    //     //Marker + infowindow + angularjs compiled ng-click
-    //     var contentString = "<div><a ng-click='clickTest()'>Click me!</a></div>";
-    //     var compiled = $compile(contentString)($scope);
-    //
-    //     var infowindow = new google.maps.InfoWindow({
-    //       content: compiled[0]
-    //     });
-    //
-    //     var marker = new google.maps.Marker({
-    //       position: myLatlng,
-    //       map: map,
-    //       title: 'Uluru (Ayers Rock)'
-    //     });
-    //
-    //     google.maps.event.addListener(marker, 'click', function() {
-    //       infowindow.open(map,marker);
-    //     });
-    //
-    //     $scope.map = map;
-    //   }
-    //   google.maps.event.addDomListener(window, 'load', initialize);
-    //
-    //   $scope.centerOnMe = function() {
-    //     if(!$scope.map) {
-    //       return;
-    //     }
-    //
-    //     $scope.loading = $ionicLoading.show({
-    //       content: 'Getting current location...',
-    //       showBackdrop: false
-    //     });
-    //
-    //     navigator.geolocation.getCurrentPosition(function(pos) {
-    //       $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-    //       $scope.loading.hide();
-    //     }, function(error) {
-    //       alert('Unable to get location: ' + error.message);
-    //     });
-    //   };
-    //
-    //   $scope.clickTest = function() {
-    //     alert('Example of infowindow with ng-click')
-    //   };
-    //
-    // })
+  //  console.log("I'm the navigator", position.coords);
+
+
+
+
 
 .controller('profileCtrl', function($scope, $stateParams, $http) {
 
