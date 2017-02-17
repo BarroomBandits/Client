@@ -195,6 +195,7 @@ angular.module('starter.controllers', [])
               $http.post('http://localhost:3000/games', {
                 type: newGame.type,
                 time: newGame.time,
+                creator: newGame.creator,
                 user_id: newGame.creator_id,
                 p1_score: newGame.p1_score,
                 p2_score: newGame.p2_score,
@@ -205,12 +206,13 @@ angular.module('starter.controllers', [])
            }).then(result=>{
              console.log(result)
              $state.go('app.games')
+
            });
 
   }
 })
 
-.controller('gameCtrl', function($http, $geolocation, $scope, $stateParams) {
+.controller('gameCtrl', function($http, $state, $geolocation, $scope, $stateParams) {
   const vm = this;
   $geolocation.getCurrentPosition({
     timeout: 60000
@@ -245,7 +247,7 @@ angular.module('starter.controllers', [])
             console.log(data)
             vm.game_params = {
               game_id: data.data.id,
-              creator_name: "Matt" ,
+              creator_name: data.data.creator,
               start_time: data.data.time,
               game_type: data.data.type,
               lat2: data.data.lat,
@@ -265,12 +267,83 @@ angular.module('starter.controllers', [])
       $http.put('http://localhost:3000/games/' + $stateParams.id, {
         is_active:"active"
       })
+      localStorage.joinGameId = $stateParams.id
       $http.post('http://localhost:3000/games/'+ $stateParams.id + '/user/' + localStorage.user_id)
-    }
-  console.log("state params: ", $stateParams);
+        .then((data)=>{
+          console.log(data)
+          $state.go('app.activeGame', {param:data.data[0]})
+
+        })
+      }
+      console.log("state params: ", $stateParams);
+      // vm.single_game = {
+      //   p1_name: "Brian",
+      //   p2_name: "Mickey",
+      //   game_type: "ping pong",
+      //   game_icon: 'http://www.pingpongstandard.com/wp-content/uploads/2015/05/cropped-circleicon02.png'
+      // }
 })
 
-.controller('activeGameCtrl', function($scope, $stateParams) {
+.controller('activeGameCtrl', function($http, $scope, $stateParams) {
+  console.log("clicked a game");
   const vm = this;
-  console.log($stateParams.id);
+  $http.get('http://localhost:3000/games/' + $stateParams.id)
+  .then(gameData=>{
+    console.log(gameData)
+    vm.single_game = {
+      p1_name: localStorage.username,
+      p2_name: gameData.data.creator,
+      p1_score: gameData.data.p1_score,
+      p2_score: gameData.data.p2_score,
+      game_type: gameData.data.type,
+    }
+    switch (gameData.data.type){
+      case "Ping-Pong":
+        vm.single_game.game_icon = "http://www.pingpongstandard.com/wp-content/uploads/2015/05/cropped-circleicon02.png"
+        break;
+      case "H-O-R-S-E":
+        vm.single_game.game_icon = "https://s3.amazonaws.com/gs.apps.icons/J0O1IBBqEeSIGCIACyygwg/basketball-512.png"
+        break;
+      case "Darts":
+        vm.single_game.game_icon = "https://cdn2.iconfinder.com/data/icons/flat-seo-web-ikooni/128/flat_seo-06-512.png"
+        break;
+      case "Pool":
+        vm.single_game.game_icon = "http://icons.iconarchive.com/icons/barkerbaggies/pool-ball/256/Ball-8-icon.png"
+        break;
+      case "Pro Sports Wager":
+        vm.single_game.game_icon = "https://d30y9cdsu7xlg0.cloudfront.net/png/96575-200.png"
+        break;
+  }
+});
+  vm.p1Score = 0;
+  vm.p2Score = 0;
+  vm.p1ScoreUp = function(){
+    vm.p1Score += 1;
+  }
+  vm.p2ScoreUp = function(){
+    vm.p2Score += 1;
+  }
+  vm.p1ScoreDown = function(){
+    vm.p1Score -= 1;
+  }
+  vm.p2ScoreDown = function(){
+    console.log("p1 score!");
+    vm.p2Score -= 1;
+  }
+  vm.finishGame = function(){
+    console.log('finishing game...')
+    if (vm.p1Score > vm.p2Score){
+      var p1Wins = true;
+    } else {
+      var p1Wins = false;
+    }
+    $http.put("http://localhost:3000/games/" + $stateParams.id, {
+      p1_score: vm.p1Score,
+      p2_score: vm.p2Score,
+      p1_winner: p1Wins,
+      is_active: "complete"
+    })
+    
+  }
+
 });

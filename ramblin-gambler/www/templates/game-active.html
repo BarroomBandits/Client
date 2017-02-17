@@ -1,5 +1,35 @@
 <ion-view view-title="Active Game">
   <ion-content>
-    <h1>Active Game</h1>
+    <div class="outer-div">
+      <img class="game-icon" src="{{$ctrl.single_game.game_icon}}" alt="">
+      <h1 class="game-type">{{$ctrl.single_game.game_type}}</h1>
+      <h2 class="players">{{$ctrl.single_game.p1_name}} VS. {{$ctrl.single_game.p2_name}}</h2>
+      <div class="row">
+        <div class="col">
+          <button ng-click="$ctrl.p1ScoreUp()" class="button button-positive">+</button>
+        </div>
+        <div class="col">
+          <button ng-click="$ctrl.p2ScoreUp()"class="button button-positive">+</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h2 ng-model="$ctrl.p1Score">{{$ctrl.p1Score}}</h2>
+        </div>
+        <div class="col">
+          <h2 ng-model="$ctrl.p2Score">{{$ctrl.p2Score}}</h2>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button ng-click="$ctrl.p1ScoreDown()" class="button button-energized">-</button>
+        </div>
+        <div class="col">
+          <button ng-click="$ctrl.p2ScoreDown()" class="button button-energized">-</button>
+        </div>
+      </div>
+      <button ng-click="$ctrl.finishGame()" class="button button-wide button-positive" type="button" name="button">Finish Game</button>
+    </div>
   </ion-content>
 </ion-view>
