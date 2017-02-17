@@ -289,7 +289,7 @@ angular.module('starter.controllers', [])
       // }
 })
 
-.controller('activeGameCtrl', function($http, $scope, $stateParams) {
+.controller('activeGameCtrl', function($http, $state, $scope, $stateParams) {
   console.log("clicked a game");
   const vm = this;
   console.log("state Params dot ID : ", $stateParams.id);
@@ -354,10 +354,10 @@ angular.module('starter.controllers', [])
       p2_score: vm.p2Score,
       p1_winner: p1Wins,
       is_active: "complete"
-    }).then((data)=>{
-      console.log(data)
+    }).then(()=>{
+      $state.go('app.games')
     })
-    console.log($stateParams.id);
+
     // $http.get('http://localhost:3000/users/' + localStorage.user_id)
     //   .then(playerData=>{
     //     vm.playerData = playerData;

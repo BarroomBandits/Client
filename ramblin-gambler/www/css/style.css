@@ -42,7 +42,9 @@
   text-align: center;
 
 }
-
+.game-score {
+  margin-left:30%;
+}
 .game-type {
   text-align: center;
 }
