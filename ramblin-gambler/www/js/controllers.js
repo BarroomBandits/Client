@@ -354,6 +354,8 @@ angular.module('starter.controllers', [])
       p2_score: vm.p2Score,
       p1_winner: p1Wins,
       is_active: "complete"
+    }).then((data)=>{
+      console.log(data)
     })
     console.log($stateParams.id);
     // $http.get('http://localhost:3000/users/' + localStorage.user_id)
