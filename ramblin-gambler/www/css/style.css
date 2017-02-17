@@ -22,3 +22,8 @@
 .item {
   border: none;
 }
+
+.map-marker {
+  width:10px;
+  height:10px;
+}

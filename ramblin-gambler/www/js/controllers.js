@@ -149,16 +149,24 @@ angular.module('starter.controllers', [])
 // })
 
 .controller('mapCtrl', function($scope, $http) {
-
   const vm = this;
+
+vm.images={
+  'Ping Pong': 'https://image.flaticon.com/icons/png/512/1/1269.png',
+  'Pool': 'https://lh3.googleusercontent.com/5tZlKk0uV_8LHFHJCnxqm0Dd9YEPG70jfVo1xS5If5QQGk5OAKIv3Q43Nc76bmU6BA=w300'
+}
+
   $http.get('http://localhost:3000/games').success(function(data) {
     vm.allGames = data
     console.log(data);
+    console.log(data[0].type);
+    // vm.pingPong = 'https://image.flaticon.com/icons/png/512/1/1269.png'
   })
   $http.get('http://localhost:3000/games_users/pending').success(function(crap){
     vm.pendingGames = crap
     console.log(crap);
   })
+
 })
 
   //  console.log("I'm the navigator", position.coords);
