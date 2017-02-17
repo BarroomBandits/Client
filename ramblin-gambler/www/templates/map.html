@@ -65,8 +65,11 @@
           center="current-location"
           radius="500">
         </shape>
-          <marker position="1644 Platte St, Denver, CO 80202" on-click="$ctrl.showCustomMarker()"></marker>
-  
+
+        <div ng-repeat="location in $ctrl.allGames">
+          <marker position="{{location.lat}}, {{location.long}}"></marker>
+        </div>
+
       </ng-map>
     </div>
   </div>

@@ -152,10 +152,13 @@ angular.module('starter.controllers', [])
 
   const vm = this;
   $http.get('http://localhost:3000/games').success(function(data) {
-    vm.allGames = data;
-    console.log(data)
+    vm.allGames = data
+    console.log(data);
   })
-
+  $http.get('http://localhost:3000/games_users/pending').success(function(crap){
+    vm.pendingGames = crap
+    console.log(crap);
+  })
 })
 
   //  console.log("I'm the navigator", position.coords);
