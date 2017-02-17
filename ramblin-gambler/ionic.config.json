@@ -4,7 +4,7 @@
   "proxies": [
     {
       "path": "/users",
-      "proxyUrl": "http://localhost:3000/users"
+      "proxyUrl": "https://ramblin-gamblin.herokuapp.com/users"
     }
   ]
 }

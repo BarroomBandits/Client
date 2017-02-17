@@ -64,7 +64,7 @@ angular.module('starter.controllers', [])
     }
     // console.log("LOGIN user: " + $scope.loginData.email + " - PW: " + $scope.loginData.password);
     $scope.closeLogin();
-    $http.post('http://localhost:3000/signIn', user)
+    $http.post('https://ramblin-gamblin.herokuapp.com/signIn', user)
       .then(function(result){
         localStorage.token = result.data.token
         // localStorage.user_id =
@@ -89,7 +89,7 @@ angular.module('starter.controllers', [])
     //   shitcoin: 100
     // }
 
-    $http.post('http://localhost:3000/newuser', newUser)
+    $http.post('https://ramblin-gamblin.herokuapp.com/newuser', newUser)
       .then(function(data){
         console.log("data coming back --", data);
         $scope.modalSignup.hide();
@@ -108,13 +108,13 @@ angular.module('starter.controllers', [])
     const vm = this;
     function getPendingGames () {
 
-      $http.get('http://localhost:3000/games_users/pending').success(function(data){
+      $http.get('https://ramblin-gamblin.herokuapp.com/games_users/pending').success(function(data){
         console.log(data);
         vm.pendingGames = data
       })
     };
     function getActiveGames () {
-      $http.get('http://localhost:3000/games_users/active/'+ localStorage.user_id).success(function(data){
+      $http.get('https://ramblin-gamblin.herokuapp.com/games_users/active/'+ localStorage.user_id).success(function(data){
         console.log(localStorage.user_id)
         console.log(data)
         vm.activeGames = data
@@ -132,7 +132,7 @@ angular.module('starter.controllers', [])
 .controller('wagersCtrl', function($scope, $http) {
   const vm = this;
   function getPendingWagers(){
-      $http.get('http://localhost:3000/games_users_wagers').success(function(data){
+      $http.get('https://ramblin-gamblin.herokuapp.com/games_users_wagers').success(function(data){
         vm.pendingWagers = data
       })
     }
@@ -158,7 +158,7 @@ angular.module('starter.controllers', [])
   getProfile();
 
   function getProfile(){
-    $http.get('http://localhost:3000/profile', {
+    $http.get('https://ramblin-gamblin.herokuapp.com/profile', {
       headers: {
         Authorization: 'Bearer ' + localStorage.token
       }
@@ -196,7 +196,7 @@ angular.module('starter.controllers', [])
 
               };
               console.log(newGame)
-              $http.post('http://localhost:3000/games', {
+              $http.post('https://ramblin-gamblin.herokuapp.com/games', {
                 type: newGame.type,
                 time: newGame.time,
                 creator: newGame.creator,
@@ -247,7 +247,7 @@ angular.module('starter.controllers', [])
           long: $scope.myPosition.coords.longitude
         };
 
-        $http.get('http://localhost:3000/games/'+ $stateParams.id)
+        $http.get('https://ramblin-gamblin.herokuapp.com/games/'+ $stateParams.id)
           .then(data=>{
             console.log(data)
             vm.game_params = {
@@ -269,11 +269,11 @@ angular.module('starter.controllers', [])
 
     $scope.joinGame = function(){
       console.log("Joining game")
-      $http.put('http://localhost:3000/games/' + $stateParams.id, {
+      $http.put('https://ramblin-gamblin.herokuapp.com/games/' + $stateParams.id, {
         is_active:"active"
       })
       localStorage.joinGameId = $stateParams.id
-      $http.post('http://localhost:3000/games/'+ $stateParams.id + '/user/' + localStorage.user_id)
+      $http.post('https://ramblin-gamblin.herokuapp.com/games/'+ $stateParams.id + '/user/' + localStorage.user_id)
         .then((data)=>{
           console.log(data)
           $state.go('app.activeGame', {id:data.data[0]})
@@ -293,7 +293,7 @@ angular.module('starter.controllers', [])
   console.log("clicked a game");
   const vm = this;
   console.log("state Params dot ID : ", $stateParams.id);
-  $http.get('http://localhost:3000/games/' + $stateParams.id)
+  $http.get('https://ramblin-gamblin.herokuapp.com/games/' + $stateParams.id)
   .then(gameData=>{
     vm.gameData = gameData
     console.log(gameData)
@@ -349,7 +349,7 @@ angular.module('starter.controllers', [])
     } else {
       var p1Wins = false;
     }
-    $http.put("http://localhost:3000/games/" + $stateParams.id, {
+    $http.put("https://ramblin-gamblin.herokuapp.com/games/" + $stateParams.id, {
       p1_score: vm.p1Score,
       p2_score: vm.p2Score,
       p1_winner: p1Wins,
@@ -358,82 +358,82 @@ angular.module('starter.controllers', [])
       $state.go('app.games')
     })
 
-    // $http.get('http://localhost:3000/users/' + localStorage.user_id)
+    // $http.get('https://ramblin-gamblin.herokuapp.com/users/' + localStorage.user_id)
     //   .then(playerData=>{
     //     vm.playerData = playerData;
     //     console.log(vm.playerData)
     //     switch (vm.gameData.data.type){
     //       case "Ping-Pong":
     //         var pong_played = vm.playerData.data[0].pong_games_played + 1
-    //         $http.put('http://localhost:3000/user/' + localStorage.user_id, {
+    //         $http.put('https://ramblin-gamblin.herokuapp.com/user/' + localStorage.user_id, {
     //           pong_games_played: pong_played
     //         })
     //         break;
     //       case "H-O-R-S-E":
     //         var horse_played = vm.playerData.data[0].horse_games_played + 1
-    //         $http.put('http://localhost:3000/user/' + localStorage.user_id, {
+    //         $http.put('https://ramblin-gamblin.herokuapp.com/user/' + localStorage.user_id, {
     //           horse_games_played: horse_played
     //         })
     //         break;
     //       case "Darts":
     //         var darts_played = vm.playerData.data[0].darts_games_played + 1
-    //         $http.put('http://localhost:3000/user/' + localStorage.user_id, {
+    //         $http.put('https://ramblin-gamblin.herokuapp.com/user/' + localStorage.user_id, {
     //           darts_games_played: darts_played
     //         })
     //         break;
     //       case "Pool":
     //         var pool_played = vm.playerData.data[0].pool_games_played + 1
-    //         $http.put('http://localhost:3000/user/' + localStorage.user_id, {
+    //         $http.put('https://ramblin-gamblin.herokuapp.com/user/' + localStorage.user_id, {
     //           pool_games_played: pool_played
     //         })
     //         break;
     //       case "Pro Sports Wager":
     //         var pro_played = vm.playerData.data[0].pro_games_played + 1
-    //         $http.put('http://localhost:3000/user/' + localStorage.user_id, {
+    //         $http.put('https://ramblin-gamblin.herokuapp.com/user/' + localStorage.user_id, {
     //           pro_games_played: pro_played
     //         })
     //         break;
     //     }
     //   })
-      // $http.get('http://localhost:3000/users/' + gameData.data.creator_id)
+      // $http.get('https://ramblin-gamblin.herokuapp.com/users/' + gameData.data.creator_id)
       //   .then(playerData=>{
       //     vm.playerData = playerData;
       //     console.log(vm.playerData)
       //     switch (vm.gameData.data.type){
       //       case "Ping-Pong":
       //         var pong_played = vm.playerData.data[0].pong_games_played + 1
-      //         $http.put('http://localhost:3000/user/' + localStorage.user_id, {
+      //         $http.put('https://ramblin-gamblin.herokuapp.com/user/' + localStorage.user_id, {
       //           pong_games_played: pong_played
       //         })
       //         break;
       //       case "H-O-R-S-E":
       //         var horse_played = vm.playerData.data[0].horse_games_played + 1
-      //         $http.put('http://localhost:3000/user/' + localStorage.user_id, {
+      //         $http.put('https://ramblin-gamblin.herokuapp.com/user/' + localStorage.user_id, {
       //           horse_games_played: horse_played
       //         })
       //         break;
       //       case "Darts":
       //         var darts_played = vm.playerData.data[0].darts_games_played + 1
-      //         $http.put('http://localhost:3000/user/' + localStorage.user_id, {
+      //         $http.put('https://ramblin-gamblin.herokuapp.com/user/' + localStorage.user_id, {
       //           darts_games_played: darts_played
       //         })
       //         break;
       //       case "Pool":
       //         var pool_played = vm.playerData.data[0].pool_games_played + 1
-      //         $http.put('http://localhost:3000/user/' + localStorage.user_id, {
+      //         $http.put('https://ramblin-gamblin.herokuapp.com/user/' + localStorage.user_id, {
       //           pool_games_played: pool_played
       //         })
       //         break;
       //       case "Pro Sports Wager":
       //         var pro_played = vm.playerData.data[0].pro_games_played + 1
-      //         $http.put('http://localhost:3000/user/' + localStorage.user_id, {
+      //         $http.put('https://ramblin-gamblin.herokuapp.com/user/' + localStorage.user_id, {
       //           pro_games_played: pro_played
       //         })
       //         break;
       //     }
       //   })
 
-    // $http.put("http://localhost:3000/users/" + localStorage.user_id, {
+    // $http.put("https://ramblin-gamblin.herokuapp.com/users/" + localStorage.user_id, {
     //   vm.current_game_type + "_games_played":"asdj"
     // })
 
